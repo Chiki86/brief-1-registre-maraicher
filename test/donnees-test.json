@@ -1,0 +1,82 @@
+[
+  {
+    "id": "O01",
+    "date": "2026-10-20",
+    "parcelle": "P1",
+    "culture": "tomate",
+    "operation": "semis",
+    "coutFCFA": 3000
+  },
+  {
+    "id": "O02",
+    "date": "2026-10-20",
+    "parcelle": "P2",
+    "culture": "gombo",
+    "operation": "semis",
+    "coutFCFA": 4500
+  },
+  {
+    "id": "O03",
+    "date": "2026-10-21",
+    "parcelle": "P1",
+    "culture": "tomate",
+    "operation": "arrosage",
+    "coutFCFA": 2000
+  },
+  {
+    "id": "O04",
+    "date": "2026-10-21",
+    "parcelle": "P3",
+    "culture": "aubergine",
+    "operation": "repiquage",
+    "coutFCFA": 5000
+  },
+  {
+    "id": "O05",
+    "date": "2026-10-22",
+    "parcelle": "P2",
+    "culture": "gombo",
+    "operation": "arrosage",
+    "coutFCFA": 1500
+  },
+  {
+    "id": "O06",
+    "date": "2026-10-22",
+    "parcelle": "P1",
+    "culture": "tomate",
+    "operation": "désherbage",
+    "coutFCFA": 8000
+  },
+  {
+    "id": "O07",
+    "date": "2026-10-23",
+    "parcelle": "P3",
+    "culture": "aubergine",
+    "operation": "arrosage",
+    "coutFCFA": 4000
+  },
+  {
+    "id": "O08",
+    "date": "2026-10-24",
+    "parcelle": "P2",
+    "culture": "gombo",
+    "operation": "désherbage",
+    "coutFCFA": 3500
+  },
+  {
+    "id": "O09",
+    "date": "2026-10-25",
+    "parcelle": "P1",
+    "culture": "tomate",
+    "operation": "arrosage",
+    "coutFCFA": 2500
+  },
+  {
+    "id": "O10",
+    "date": "2026-10-26",
+    "parcelle": "P3",
+    "culture": "aubergine",
+    "operation": "désherbage",
+    "coutFCFA": 6000
+  }
+]
