@@ -27,7 +27,7 @@ export function listerOperations(operations) {
 
 // Renvoie l'opération qui a cet identifiant, ou undefined si elle n'existe pas.
 export function trouverParId(operations, id) {
-
+return operations.find(a=>a.id===id)
   throw new Error('TODO : coder tarouverParId dans src/registre.js');
 }
 
