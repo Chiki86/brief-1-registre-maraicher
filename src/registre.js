@@ -69,6 +69,15 @@ return erreurs
 
 // Fabrique l'opération à enregistrer à partir d'une saisie VALIDE : coutFCFA devient un nombre.
 export function creerOperation(saisie) {
+  return {
+  id: saisie.id,
+  date:saisie.date,
+  parcelle: saisie.parcelle,
+  culture:saisie.culture,
+  operation: saisie.operation,
+  coutFCFA: versNombre(saisie.coutFCFA)
+  }
+
   throw new Error('TODO : coder creerOperation dans src/registre.js');
 }
 
