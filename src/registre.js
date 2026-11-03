@@ -39,6 +39,31 @@ return operations.find(a=>a.id===id)
 // obligatoires (n'importe quel texte non vide) · operation présente dans OPERATIONS
 // · coutFCFA nombre positif ou nul.
 export function verifierOperation(saisie, operations) {
+  const erreurs = [];
+if (saisie.id===''){
+  erreurs.push('id obligatoire');
+}
+else if (trouverParId(operations,saisie.id) !== undefined){
+  erreurs.push(`identifiant ${saisie.id} existe déja`);
+}
+if (!estDateValide(saisie.date)){
+  erreurs.push (`Veuilles entrer une date valide au format AAAA-MM-JJ`);
+}
+if(saisie.parcelle===''){
+  erreurs.push (`Parcelle obligatoire, veuillez entrer une parcelle valide`)
+}
+if(saisie.culture===''){
+  erreurs.push(`culture obligatoire, veuilles entrer une culture valide`)
+}
+if(!OPERATIONS.includes(saisie.operation)){
+  erreurs.push(`Veuillez entrer une operation valide de la liste: semis, arrosage , désherbage, repiquage, recolte`)
+}const conversion= versNombre(saisie.coutFCFA)
+if ( Number.isNaN(conversion)|| conversion<0){
+  erreurs.push(`veuillez entrer un nombre positif`)
+}
+return erreurs
+
+
   throw new Error('TODO : coder verifierOperation dans src/registre.js');
 }
 
