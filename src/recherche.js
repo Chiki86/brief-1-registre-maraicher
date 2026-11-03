@@ -13,9 +13,13 @@ export function filtrerParParcelle(operations, parcelle) {
 
 // Renvoie un NOUVEAU tableau avec les opérations de cette culture (éventuellement vide).
 export function filtrerParCulture(operations, culture) {
-  throw new Error('TODO : coder filtrerParCulture dans src/recherche.js');
+  const resultats=[]
+  for( const operation of operations){
+    if (operation.culture===culture){
+      resultats.push(operation);
+    }
+  } return resultats
 }
-
 // Renvoie une COPIE triée par coût croissant, avec un comparateur numérique.
 // Deux opérations de même coût gardent leur ordre d'origine. Le tableau reçu ne doit pas changer d'ordre.
 export function trierParCout(operations) {
