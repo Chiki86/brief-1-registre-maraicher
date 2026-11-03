@@ -8,8 +8,7 @@ export const OPERATIONS = ['semis', 'arrosage', 'désherbage', 'repiquage', 'ré
 // Renvoie une ligne de texte qui décrit l'opération.
 // Exemple : 'O03 | 2026-10-21 | P1 | tomate | arrosage | 2000 FCFA'
 export function formaterOperation(operation) {
-  return `${operation.id} | ${operation.date} | ${operation.parcelle} | ${operation.culture} | ${operation.operation} | ${operation.coutFCFA} FCFA`
-  throw new Error('TODO : coder formaterOperation dans src/registre.js');
+  return `${operation.id} | ${operation.date} | ${operation.parcelle} | ${operation.culture} | ${operation.operation} | ${operation.coutFCFA} FCFA`;
 }
 
 // Renvoie un texte avec une opération par ligne (lignes séparées par '\n'),
@@ -18,17 +17,12 @@ export function listerOperations(operations) {
   if (operations.length === 0) { 
   return "Aucune opération enregistrée.";
 }
-  return operations.map(formaterOperation).join('\n')
-
-
-  throw new Error('TODO : coder listerOperations dans src/registre.js');
-  
+  return operations.map(formaterOperation).join('\n');
 }
 
 // Renvoie l'opération qui a cet identifiant, ou undefined si elle n'existe pas.
 export function trouverParId(operations, id) {
-return operations.find(a=>a.id===id)
-  throw new Error('TODO : coder tarouverParId dans src/registre.js');
+return operations.find(a=>a.id===id);
 }
 
 // Contrôle une saisie AVANT de l'ajouter. Tous les champs arrivent sous forme de TEXTE :
@@ -50,21 +44,18 @@ if (!estDateValide(saisie.date)){
   erreurs.push (`Veuilles entrer une date valide au format AAAA-MM-JJ`);
 }
 if(saisie.parcelle===''){
-  erreurs.push (`Parcelle obligatoire, veuillez entrer une parcelle valide`)
+  erreurs.push (`Parcelle obligatoire, veuillez entrer une parcelle valide`);
 }
 if(saisie.culture===''){
-  erreurs.push(`culture obligatoire, veuilles entrer une culture valide`)
+  erreurs.push(`culture obligatoire, veuilles entrer une culture valide`);
 }
 if(!OPERATIONS.includes(saisie.operation)){
-  erreurs.push(`Veuillez entrer une operation valide de la liste: semis, arrosage , désherbage, repiquage, recolte`)
+  erreurs.push(`Veuillez entrer une operation valide de la liste: semis, arrosage , désherbage, repiquage, recolte`);
 }const conversion= versNombre(saisie.coutFCFA)
 if ( Number.isNaN(conversion)|| conversion<0){
-  erreurs.push(`veuillez entrer un nombre positif`)
+  erreurs.push(`veuillez entrer un nombre positif`);
 }
-return erreurs
-
-
-  throw new Error('TODO : coder verifierOperation dans src/registre.js');
+return erreurs;
 }
 
 // Fabrique l'opération à enregistrer à partir d'une saisie VALIDE : coutFCFA devient un nombre.
@@ -76,9 +67,7 @@ export function creerOperation(saisie) {
   culture:saisie.culture,
   operation: saisie.operation,
   coutFCFA: versNombre(saisie.coutFCFA)
-  }
-
-  throw new Error('TODO : coder creerOperation dans src/registre.js');
+  };
 }
 
 // Ajoute la saisie au registre si elle est valide (verifierOperation, puis creerOperation).
@@ -89,6 +78,5 @@ export function ajouterOperation(operations, saisie) {
     return erreur;
   }
   operations.push(creerOperation(saisie));
-  return[]
-  throw new Error('TODO : coder ajout verifiererOperation dans src/registre.js');
+  return[];
 }
