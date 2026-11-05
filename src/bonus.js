@@ -19,7 +19,6 @@ export function supprimerOperation(operations, id) {
   return supprimee;
 }
 
-
 // Modifie UN champ d'une opération. La nouvelle valeur arrive sous forme de TEXTE et suit
 // les mêmes règles qu'à l'ajout. Renvoie les erreurs : [] si la modification est faite ;
 // sinon les messages, et l'opération ne change pas.
@@ -44,7 +43,6 @@ export function modifierOperation(operations, id, champ, valeur) {
   }
   operation[champ] = champ === 'coutFCFA' ? versNombre(valeur) : valeur;
   return [];
-
 }
 
 // Renvoie une COPIE triée par coût décroissant : la plus chère d'abord.
@@ -62,4 +60,4 @@ export function parcelleLaPlusCouteuse(operations) {
     }
   }
   return meilleure;
-}l
+}
