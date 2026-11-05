@@ -49,7 +49,7 @@ export function modifierOperation(operations, id, champ, valeur) {
 
 // Renvoie une COPIE triée par coût décroissant : la plus chère d'abord.
 export function trierParCoutDecroissant(operations) {
-  
+  return [...operations].sort((a, b) => b.coutFCFA - a.coutFCFA);
 }
 
 // Renvoie la parcelle dont le total des coûts est le plus élevé : { parcelle, total },
