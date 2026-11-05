@@ -41,7 +41,7 @@ else if (trouverParId(operations,saisie.id) !== undefined){
   erreurs.push(`identifiant ${saisie.id} existe déja`);
 }
 if (!estDateValide(saisie.date)){
-  erreurs.push (`Veuilles entrer une date valide au format AAAA-MM-JJ`);
+  erreurs.push (`Veuillez entrer une date valide au format AAAA-MM-JJ`);
 }
 if(saisie.parcelle===''){
   erreurs.push (`Parcelle obligatoire, veuillez entrer une parcelle valide`);
