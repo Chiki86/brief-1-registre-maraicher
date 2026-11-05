@@ -24,6 +24,7 @@ function afficherMenu() {
   console.log('1. Ajouter une opération');
   console.log('2. Lister les opérations');
   console.log('3. Rechercher (identifiant, parcelle, culture)');
+  console.log('4. Trier (coût, date)');
   console.log('0. Quitter');
 }
 //ASYNCHRONE DE L'OPTION 1 DE APP.JS
@@ -101,6 +102,22 @@ function lister(operations) {
     console.log('Choix inconnu : retour au menu.');
   }
 }
+//ASYNCHRONE DE L'OPTION 4 APP.JS
+async function trier(operations) {
+  console.log('--- Trier ---');
+  console.log('1. Par coût croissant');
+  console.log('2. Par date, de la plus ancienne à la plus récente');
+  const choix = await demander(' Veuillez faire votre choix : ');
+  if (choix === null) return;
+
+  if (choix === '1') {
+    console.log(listerOperations(trierParCout(operations)));
+  } else if (choix === '2') {
+    console.log(listerOperations(trierParDate(operations)));
+  } else {
+    console.log('Choix inconnu : retour au menu.');
+  }
+}
 
 // EXCECUTION DE L'INTERRACTION DU REGISTRE APP.JS
 async function main() {
@@ -129,6 +146,7 @@ async function main() {
           case '1': await ajouter(operations);break;
           case '2': lister(operations); break;
           case '3': await rechercher(operations);break;
+          case '4': await trier(operations); break;
           default:
             console.log(`Choix inconnu : « ${choix} ». Veuillez Taper un chiffre du menu, MERCI!!!`);
         }
