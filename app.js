@@ -7,7 +7,7 @@ import { chargerJson, enregistrerJson } from './src/stockage.js';
 import { OPERATIONS, ajouterOperation, formaterOperation, listerOperations, trouverParId } from './src/registre.js';
 import { filtrerParCulture, filtrerParParcelle, trierParCout, trierParDate } from './src/recherche.js';
 import { coutMinMax, syntheseParParcelle, totalCouts } from './src/synthese.js';
-
+import { modifierOperation, parcelleLaPlusCouteuse, supprimerOperation, trierParCoutDecroissant } from './src/bonus.js';
 const FICHIER_DONNEES = 'donnees/operations.json';
 
 function afficherAccueil() {
@@ -26,6 +26,8 @@ function afficherMenu() {
   console.log('3. Rechercher (identifiant, parcelle, culture)');
   console.log('4. Trier (coût, date)');
   console.log('5. Synthèse des dépenses');
+  console.log('6. Supprimer une opération');
+  console.log('7. Modifier une opération');
   console.log('0. Quitter');
 }
 //ASYNCHRONE DE L'OPTION 1 DE APP.JS
@@ -108,6 +110,7 @@ async function trier(operations) {
   console.log('--- Trier ---');
   console.log('1. Par coût croissant');
   console.log('2. Par date, de la plus ancienne à la plus récente');
+  console.log('3. Par coût décroissant');
   const choix = await demander(' Veuillez faire votre choix : ');
   if (choix === null) return;
 
@@ -115,6 +118,8 @@ async function trier(operations) {
     console.log(listerOperations(trierParCout(operations)));
   } else if (choix === '2') {
     console.log(listerOperations(trierParDate(operations)));
+  } else if (choix === '3') {
+    console.log(listerOperations(trierParCoutDecroissant(operations)));
   } else {
     console.log('Choix inconnu : retour au menu.');
   }
@@ -132,11 +137,52 @@ function synthese(operations) {
   if (minMax === null) {
     console.log('Coût minimum et maximum : aucune donnée.');
   } else {
-    console.log(`Le Coût minimum : ${minMax.min} FCFA · Le Coût maximum : ${minMax.max} FCFA`);
+    console.log(`Coût minimum : ${minMax.min} FCFA · Coût maximum : ${minMax.max} FCFA`);
+    const chere = parcelleLaPlusCouteuse(operations);
+    console.log(`Parcelle la plus coûteuse : ${chere.parcelle} (${chere.total} FCFA)`);
   }
   console.log('Rappel : ce sont des dépenses. Sans les revenus, elles ne mesurent pas la rentabilité.');
 }
+//ASYNHCRHONE DE L'OPTION 6 APP.JS
 
+async function supprimer(operations) {
+  const reponse = await demander('Identifiant : ');
+  if (reponse === null) return;
+  const id = reponse.toUpperCase();
+  const supprimee = supprimerOperation(operations, id);
+  if (supprimee === undefined) {
+    console.log(`Opération ${id} introuvable.`);
+  } else {
+    await enregistrerJson(FICHIER_DONNEES, operations);
+    console.log(`Opération ${id} supprimée. Le registre compte ${operations.length} opération(s).`);
+  }
+}
+//ASYNHCRHONE DE L'OPTION 7 APP.JS
+
+async function modifier(operations) {
+  const reponseId = await demander('Identifiant : ');
+  if (reponseId === null) return;
+  const champ = await demander('Champ à modifier (date, parcelle, culture, operation, coutFCFA) : ');
+  if (champ === null) return;
+  const reponse = await demander('Nouvelle valeur : ');
+  if (reponse === null) return;
+
+  const id = reponseId.toUpperCase();
+  let valeur = reponse;
+  if (champ === 'parcelle') valeur = reponse.toUpperCase();
+  if (champ === 'culture' || champ === 'operation') valeur = reponse.toLowerCase();
+
+  const erreurs = modifierOperation(operations, id, champ, valeur);
+  if (erreurs.length === 0) {
+    await enregistrerJson(FICHIER_DONNEES, operations);
+    console.log(`Opération ${id} modifiée.`);
+  } else {
+    console.log('Modification refusée :');
+    for (const erreur of erreurs) {
+      console.log(`  - ${erreur}`);
+    }
+  }
+}
 // EXCECUTION DE L'INTERRACTION DU REGISTRE APP.JS
 async function main() {
   ouvrirSaisie();
@@ -166,6 +212,8 @@ async function main() {
           case '3': await rechercher(operations);break;
           case '4': await trier(operations); break;
           case '5': synthese(operations); break;
+          case '6': await supprimer(operations); break;
+          case '7': await modifier(operations); break;
           default:
             console.log(`Choix inconnu : « ${choix} ». Veuillez Taper un chiffre du menu, MERCI!!!`);
         }
