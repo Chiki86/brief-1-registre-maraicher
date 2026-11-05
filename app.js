@@ -25,6 +25,7 @@ function afficherMenu() {
   console.log('2. Lister les opérations');
   console.log('3. Rechercher (identifiant, parcelle, culture)');
   console.log('4. Trier (coût, date)');
+  console.log('5. Synthèse des dépenses');
   console.log('0. Quitter');
 }
 //ASYNCHRONE DE L'OPTION 1 DE APP.JS
@@ -118,6 +119,23 @@ async function trier(operations) {
     console.log('Choix inconnu : retour au menu.');
   }
 }
+//L'OPTION 5 APP.JS
+function synthese(operations) {
+  console.log('--- Synthèse des dépenses enregistrées ---');
+  console.log(`Nombre d'opérations : ${operations.length}`);
+  console.log(`Total des coûts : ${totalCouts(operations)} FCFA`);
+  console.log('Par parcelle :');
+  for (const [parcelle, donnees] of Object.entries(syntheseParParcelle(operations))) {
+    console.log(`  ${parcelle} : ${donnees.nombre} opération(s), ${donnees.total} FCFA`);
+  }
+  const minMax = coutMinMax(operations);
+  if (minMax === null) {
+    console.log('Coût minimum et maximum : aucune donnée.');
+  } else {
+    console.log(`Le Coût minimum : ${minMax.min} FCFA · Le Coût maximum : ${minMax.max} FCFA`);
+  }
+  console.log('Rappel : ce sont des dépenses. Sans les revenus, elles ne mesurent pas la rentabilité.');
+}
 
 // EXCECUTION DE L'INTERRACTION DU REGISTRE APP.JS
 async function main() {
@@ -147,6 +165,7 @@ async function main() {
           case '2': lister(operations); break;
           case '3': await rechercher(operations);break;
           case '4': await trier(operations); break;
+          case '5': synthese(operations); break;
           default:
             console.log(`Choix inconnu : « ${choix} ». Veuillez Taper un chiffre du menu, MERCI!!!`);
         }
