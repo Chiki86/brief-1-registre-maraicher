@@ -8,14 +8,6 @@
     "coutFCFA": 3000
   },
   {
-    "id": "O02",
-    "date": "2026-10-20",
-    "parcelle": "P2",
-    "culture": "gombo",
-    "operation": "semis",
-    "coutFCFA": 4500
-  },
-  {
     "id": "O03",
     "date": "2026-10-21",
     "parcelle": "P1",

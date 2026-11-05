@@ -8,7 +8,7 @@
 
 | Action | Attendu | Obtenu | Testeur |
 | --- | --- | --- | --- |
-| ✏️ | | | |
+| SUPPRESSION D'UNE OPERATION | Opération O02 supprimée | OK | SOUMAHORO CHEICK HAMED TIDIANE|
 | ✏️ | | | |
 | ✏️ | | | |
 | ✏️ | | | |
