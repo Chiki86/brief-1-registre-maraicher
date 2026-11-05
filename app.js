@@ -23,9 +23,10 @@ function afficherMenu() {
   console.log('-'.repeat(21) + ' MENU ' + '-'.repeat(21));
   console.log('1. Ajouter une opération');
   console.log('2. Lister les opérations');
+  console.log('3. Rechercher (identifiant, parcelle, culture)');
   console.log('0. Quitter');
 }
-
+//ASYNCHRONE DE L'OPTION 1 DE APP.JS
 async function ajouter(operations) {
   console.log("--- Ajoutez une opération s'il vous plait!!---");
   const id = await demander('Identifiant (ex. O10) : ');
@@ -61,10 +62,47 @@ async function ajouter(operations) {
     console.log(`Le registre compte toujours ${operations.length} opération(s).`);
   }
 }
+//ASYNCHRONE DE L'OPTION 2 DE APP.JS
 function lister(operations) {
   console.log(`--- Liste des opérations (${operations.length}) ---`);
   console.log(listerOperations(operations));
 }
+
+//ASYNCHRONE DE L'OPTION 3 APP.JS
+  async function rechercher(operations) {
+  console.log('--- Rechercher ---');
+  console.log('1. Par identifiant');
+  console.log('2. Par parcelle');
+  console.log("3. Les opérations d'une culture");
+  const choix = await demander(' Veuillez faire votre choix : ');
+  if (choix === null) return;
+
+  if (choix === '1') {
+    const reponse = await demander('Identifiant : ');
+    if (reponse === null) return;
+    const id = reponse.toUpperCase();
+    const trouvee = trouverParId(operations, id);
+    console.log(trouvee === undefined ? `l'Opération ${id} est introuvable.` : formaterOperation(trouvee));
+  } else if (choix === '2') {
+    const reponse = await demander('Parcelle : ');
+    if (reponse === null) return;
+    const parcelle = reponse.toUpperCase();
+    const resultat = filtrerParParcelle(operations, parcelle);
+    console.log(`Il y a ${resultat.length} opération(s) sur la parcelle ${parcelle} :`);
+    console.log(listerOperations(resultat));
+  } else if (choix === '3') {
+    const reponse = await demander('Culture : ');
+    if (reponse === null) return;
+    const culture = reponse.toLowerCase();
+    const resultat = filtrerParCulture(operations, culture);
+    console.log(`Il y a ${resultat.length} opération(s) pour la culture ${culture} :`);
+    console.log(listerOperations(resultat));
+  } else {
+    console.log('Choix inconnu : retour au menu.');
+  }
+}
+
+// EXCECUTION DE L'INTERRACTION DU REGISTRE APP.JS
 async function main() {
   ouvrirSaisie();
   afficherAccueil();
@@ -88,8 +126,9 @@ async function main() {
     } else {
       try {
         switch (choix) {
-          case '1': await ajouter(operations); break;
+          case '1': await ajouter(operations);break;
           case '2': lister(operations); break;
+          case '3': await rechercher(operations);break;
           default:
             console.log(`Choix inconnu : « ${choix} ». Veuillez Taper un chiffre du menu, MERCI!!!`);
         }
